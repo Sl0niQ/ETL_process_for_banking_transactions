@@ -20,7 +20,7 @@ CREATE SCHEMA bank;
 
 --accounts
 --DROP TABLE bank.accouns_scd2;
-CREATE TABLE bank.accounts_scd2 (
+CREATE TABLE bank.dwh_dim_accounts_hist (
 	account 		VARCHAR(128) NULL,
 	valid_to 		DATE NULL,
 	client 			VARCHAR(128) NULL,
@@ -32,7 +32,7 @@ CREATE TABLE bank.accounts_scd2 (
 	is_current		BOOLEAN DEFAULT TRUE
 );
 
-INSERT INTO bank.accounts_scd2 (account, valid_to, client, create_dt, update_dt)
+INSERT INTO bank.dwh_dim_accounts_hist (account, valid_to, client, create_dt, update_dt)
 SELECT
 	account,
 	valid_to,
@@ -42,7 +42,7 @@ SELECT
 FROM bank.accounts;
 
 --cards
-CREATE TABLE bank.cards_scd2 (
+CREATE TABLE bank.dwh_dim_cards_hist (
 	card_num 		VARCHAR(128) NULL,
 	account 		VARCHAR(128) NULL,
 	create_dt 		DATE NULL,
@@ -53,7 +53,7 @@ CREATE TABLE bank.cards_scd2 (
 	is_current		BOOLEAN DEFAULT TRUE
 );
 
-INSERT INTO bank.cards_scd2 (card_num, account, create_dt, update_dt)
+INSERT INTO bank.dwh_dim_cards_hist (card_num, account, create_dt, update_dt)
 SELECT
 	card_num,
 	account,
@@ -62,7 +62,7 @@ SELECT
 FROM bank.cards;
 
 --clients
-CREATE TABLE bank.clients_scd2 (
+CREATE TABLE bank.dwh_dim_clients_hist (
 	client_id 		VARCHAR(128) NULL,
 	last_name 		VARCHAR(128) NULL,
 	first_name 		VARCHAR(128) NULL,
@@ -79,7 +79,7 @@ CREATE TABLE bank.clients_scd2 (
 	is_current		BOOLEAN DEFAULT TRUE
 );
 
-INSERT INTO bank.clients_scd2 (
+INSERT INTO bank.dwh_dim_clients_hist (
 	client_id,
 	last_name,
 	first_name,
@@ -105,7 +105,7 @@ SELECT
 FROM bank.clients;
 
 --passport_blacklist
-CREATE TABLE bank.passport_blacklist_scd2 (
+CREATE TABLE bank.dwh_dim_passport_blacklist_hist (
 	passport_num 	VARCHAR(128) NULL,
 	entry_dt 		DATE NULL,
 	effective_from	DATE DEFAULT now()::DATE,
@@ -115,7 +115,7 @@ CREATE TABLE bank.passport_blacklist_scd2 (
 );
 
 --terminals
-CREATE TABLE bank.terminals_scd2 (
+CREATE TABLE bank.dwh_dim_terminals_hist (
 	terminal_id		VARCHAR(128),
 	terminal_type	VARCHAR(128),
 	terminal_city	VARCHAR(128),
@@ -127,7 +127,7 @@ CREATE TABLE bank.terminals_scd2 (
 );
 
 --transactions
-CREATE TABLE bank.transactions_scd2 (
+CREATE TABLE bank.dwh_dim_transactions_hist (
 	trans_id		VARCHAR(128),
 	trans_date		DATE,
 	card_num 		VARCHAR(128) NULL,
